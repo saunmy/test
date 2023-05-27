@@ -3,10 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Homepage</title>
+    <title>testpage</title>
     <style>
         body {
             margin: 0;
+            background: radial-gradient(circle at center, #fefefe, #373f4a);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
             overflow: hidden;
             user-select: none;
         }
@@ -15,18 +19,42 @@
             display: block;
         }
 
+        #mask {
+            display:flex;
+            background: radial-gradient(circle at center, #fefefe, #373f4a);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            width:100vw;
+            height: 100vh;
+
+        }
+
+        #disease {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            height: 50px;
+            width: 200px;
+            background-color: transparent;
+
+        }
+
+        #disease:hover{
+            background-color: red;            
+        }
         /* 右侧侧边栏 */
         #sidebar-right {
             position: absolute;
             right: 0;
-            width: 100px;
+            width: 120px;
             height: 100%;
             background-color: transparent;
-            color: white;
+            color: #f6fafa;
             display: flex;
             flex-direction: column;
-            justify-content: space-around;
-            font-size:2em;
+            justify-content: center;
+            font-size: 2em;
             transition: transform 0.5s;
             transform: translateX(100%);
         }
@@ -38,38 +66,55 @@
 
 
         .sidebar-right-item {
-            height: 20%;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            background-color: #fedb4e;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .sidebar-right-item:hover {
-            background-color: rgb(255, 98, 0);
+            background-color: #fedb4e;
         }
 
+
         /* 左侧侧边栏 */
-        #sidebar-left {
+
+        #container {
             position: absolute;
-            width: 100px;
-            height: 100%;
-            background-color: transparent;
-            color: white;
+            left: 100px;
+            top: 200px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            height: 500px;
+            width: 420px;
+            transition: transform 0.5s;
+            opacity: 0;
+        }
+
+        #sidebar-left { 
             display: flex;
-            flex-direction: column;
-            justify-content: space-around;
+            width: 400px;
+            background-color: transparent;
+            color: #f6fafa;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
             font-size: 2em;
         }
 
         .sidebar-left-item {
-            height: 20%;
+            height: 200px;
+            width: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .sidebar-left-item:hover {
-            background-color: rgb(255, 98, 0);
+            background-color: #fedb4e;
         }
 
 
@@ -78,16 +123,17 @@
             position: absolute;
             right: 0px;
             top: 45%;
-            width: 20px;
+            width: 40px;
             height: 10%;
             background-color: transparent;
-            color: white;
+            color: #f6fafa;
             font-size: 3em;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: transform 0.5s, right 0.5s;
+            opacity: 0;
         }
 
         /*信息栏*/
@@ -97,40 +143,87 @@
             bottom: -200px;
             width: 500px;
             height: 200px;
-            background-color: rgb(255, 98, 0);
-            transition: bottom 0.5s,right 0.5s;
+            background-color: #fedb4e;
+            transition: bottom 0.5s, right 0.5s;
             font-size: 2.5em;
+        }
+
+        #start {
+            position: absolute;
+            background-color: #3c4147;
+            top: 50%;
+            left: 45%;
+            height: 10%;
+            width: 10%;
+            font-size: 2em;
+            text-align: center;
+            line-height: 300%;
+            color: #f6fafa;
+            transition: opacity 0.5s ease;
+        }
+
+        #welcome {
+            position: absolute;
+            background-color: transparent;
+            top: 20%;
+            left: 30%;
+            height: 30%;
+            width: 40%;
+            font-size: 7em;
+            text-align: center;
+            color: #f6fafa;
+            transition: opacity 0.5s ease;
         }
     </style>
 </head>
 
 <body>
-    <div id="sidebar-left">
-        <div class="sidebar-left-item">drag</div>
-        <div class="sidebar-left-item">Chest</div>
-        <div class="sidebar-left-item">Item 3</div>
-        <div class="sidebar-left-item">Item 4</div>
-        <div class="sidebar-left-item">Item 5</div>
+    <div id="mask"></div>
+    <div id="disease">disease</div>
+    <div id="container">
+        <div id="sidebar-left">
+            <div class="sidebar-left-item" id="body" >Body</div>
+            <div class="sidebar-left-item" id="organ" ">Organ</div>
+            <div class="sidebar-left-item" id="heart" >Heart</div>
+            <div class="sidebar-left-item" id="lungs" >Lungs</div>
+            <div class="sidebar-left-item" id="kidney" >Kidney</div>
+            <div class="sidebar-left-item" id="stomach" >Stomach</div>
+        </div>
     </div>
+    
 
-    <div id="toggle-btn"><</div>
+    <div id="toggle-btn">
+        <</div>
     <div id="sidebar-right">
-        <div class="sidebar-right-item" id="body">Body</div>
-        <div class="sidebar-right-item" id="chest">Chest</div>
-        <div class="sidebar-right-item">Item 3</div>
-        <div class="sidebar-right-item">Item 4</div>
-        <div class="sidebar-right-item">Item 5</div>
+        <div class="sidebar-right-item" id="drag">Drag</div>
+        <div class="sidebar-right-item" id="skin">Skin</div>
+        <div class="sidebar-right-item" id="muscle">Muscle</div>
+        <div class="sidebar-right-item" id="blood">blood</div>
+        <div class="sidebar-right-item" id="organs">Organs</div>
+        <div class="sidebar-right-item" id="skeleton">Skeleton</div>
     </div>
 
-    <div id="message">
+    <div id="message"></div>
 
+    <div id="welcome">
+        <div id="line1">3D</div>
+        <div id="line2">BODY</div>
     </div>
+
+    <div id="start">start</div>
+
     <!-- CSS相关js -->
     <script>
+        //侧边栏点击按钮
+        var sidebar = document.getElementById('sidebar-right');
+        var toggleBtn = document.getElementById('toggle-btn');
+        var message = document.getElementById('message');
+        var startButton = document.getElementById('start');
+        var sidebar_left = document.getElementById('sidebar-left');
+        var welcome = document.getElementById('welcome');
+        var container = document.getElementById('container');
+
         document.getElementById('toggle-btn').addEventListener('click', function () {
-            var sidebar = document.getElementById('sidebar-right');
-            var toggleBtn = document.getElementById('toggle-btn');
-            var message = document.getElementById('message');
             if (sidebar.style.transform === 'translateX(0%)') {
                 sidebar.style.transform = 'translateX(100%)';
                 toggleBtn.style.transform = 'rotate(0deg)';
@@ -139,14 +232,107 @@
             } else {
                 sidebar.style.transform = 'translateX(0%)';
                 toggleBtn.style.transform = 'rotate(180deg)';
-                toggleBtn.style.right = '100px';
-                message.style.right = '100px';
+                toggleBtn.style.right = '120px';
+                message.style.right = '120px';
             }
 
             event.stopPropagation();
         });
-    </script>
 
+        document.getElementById('drag').style.backgroundColor = '#3c4147';
+
+        //启动动画
+        document.getElementById('start').addEventListener('click', function () {
+            try {
+                function start_animation() {
+                    new TWEEN.Tween(skeleton.rotation)
+                        .to({ y: Math.PI * 2 }, 1000)
+                        .easing(TWEEN.Easing.Quadratic.InOut)
+                        .start();
+
+                    new TWEEN.Tween(skeleton.position)
+                        .to({ x: 0, y: -2, z: 0 }, 1000)
+                        .easing(TWEEN.Easing.Quadratic.InOut)
+                        .start();
+
+                    new TWEEN.Tween(humanskin.rotation)
+                        .to({ y: Math.PI * 2 }, 1000)
+                        .easing(TWEEN.Easing.Quadratic.InOut)
+                        .start();
+
+                    new TWEEN.Tween(humanskin.position)
+                        .to({ x: 0, y: -2, z: 0 }, 1000)
+                        .easing(TWEEN.Easing.Quadratic.InOut)
+                        .start();
+
+                    new TWEEN.Tween(blood.rotation)
+                        .to({ y: Math.PI * 2 }, 1000)
+                        .easing(TWEEN.Easing.Quadratic.InOut)
+                        .start();
+
+                    new TWEEN.Tween(blood.position)
+                        .to({ x: 0, y: -2, z: 0 }, 1000)
+                        .easing(TWEEN.Easing.Quadratic.InOut)
+                        .start();
+
+                    new TWEEN.Tween(muscle.rotation)
+                        .to({ y: Math.PI * 2 }, 1000)
+                        .easing(TWEEN.Easing.Quadratic.InOut)
+                        .start();
+
+                    new TWEEN.Tween(muscle.position)
+                        .to({ x: 0, y: -2, z: 0 }, 1000)
+                        .easing(TWEEN.Easing.Quadratic.InOut)
+                        .start();
+
+                    new TWEEN.Tween(organs.rotation)
+                        .to({ y: Math.PI * 2 }, 1000)
+                        .easing(TWEEN.Easing.Quadratic.InOut)
+                        .start();
+
+                    new TWEEN.Tween(organs.position)
+                        .to({ x: 0, y: -2, z: 0 }, 1000)
+                        .easing(TWEEN.Easing.Quadratic.InOut)
+                        .start();
+                }
+                start_animation();
+
+                container.style.transform = 'translateX(0%)';
+                
+                document.getElementById('mask').remove();
+
+                new TWEEN.Tween(startButton.style)
+                    .to({ opacity: '0' }, 1000)
+                    .onComplete(function () {
+                        startButton.style.display = 'none';
+                    })
+                    .start();
+
+                new TWEEN.Tween(toggleBtn.style)
+                    .to({ opacity: 1 }, 1000)
+                    .start();
+                
+                new TWEEN.Tween(container.style)
+                    .to({ opacity: 1 }, 1000)
+                    .start();
+
+                new TWEEN.Tween(welcome.style)
+                    .to({ opacity: '0' }, 1000)
+                    .onComplete(function () {
+                        welcome.style.display = 'none';
+                    })
+                    .start();
+            } catch (error) {
+                console.error(error);
+            }
+
+
+
+
+        });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
@@ -156,8 +342,10 @@
         var scene = new THREE.Scene();
         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.set(0, 0, 5);
-        var renderer = new THREE.WebGLRenderer();
+        var renderer = new THREE.WebGLRenderer({ alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(new THREE.Color("transparent"), 0);
+
         document.body.appendChild(renderer.domElement);
 
         var ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -165,6 +353,10 @@
 
         var directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
         directionalLight.position.set(5, 10, 10);
+        scene.add(directionalLight);
+
+        var directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        directionalLight.position.set(-5, -10, -10);
         scene.add(directionalLight);
 
         // 窗口变化后进行重新渲染函数
@@ -203,7 +395,8 @@
         });
 
 
-        //点击事件
+
+        //点击高亮及点击弹出信息栏
         function onMouseClick(event) {
 
             // 将鼠标位置标准化为 [-1, 1] 范围
@@ -269,119 +462,6 @@
             }
         }
 
-        //遍历函数进行材质保存
-        function extractPartsAndMaterials(object) {
-            // 清空状态和材质
-            parts = [];
-            highlightStatus = {};
-            defaultMaterials = {};
-            object.traverse(function (child) {
-                if (child.isMesh) {
-                    parts.push(child);
-                    highlightStatus[child.uuid] = false;
-                    defaultMaterials[child.uuid] = child.material;
-                }
-            });
-        }
-
-
-        //加载初始模型
-        var loader = new THREE.GLTFLoader();
-        var model;
-        loader.load('./1/scene.gltf', function (gltf) {
-                model = gltf.scene;
-                model.scale.set(0.035,0.035,0.035);
-                model.position.set(0,-3.5,0);
-                scene.add(model);
-
-            extractPartsAndMaterials(model);
-
-            // 为模型添加点击事件
-            window.addEventListener('click', onMouseClick, false);
-            initDragControls(model);
-
-        });
-
-        loader.load('./6/human1.gltf', function (gltf) {
-                model = gltf.scene;
-                model.scale.set(0.035,0.035,0.035);
-                model.position.set(0,-3.5,0);
-                scene.add(model);
-
-            extractPartsAndMaterials(model);
-
-            // 为模型添加点击事件
-            window.addEventListener('click', onMouseClick, false);
-            initDragControls(model);
-
-        });
-
-        loader.load('./6/blood1.gltf', function (gltf) {
-                model = gltf.scene;
-                model.scale.set(0.035,0.035,0.035);
-                model.position.set(0,-3.5,0);
-                scene.add(model);
-
-            extractPartsAndMaterials(model);
-
-            // 为模型添加点击事件
-            window.addEventListener('click', onMouseClick, false);
-            initDragControls(model);
-
-        });
-
-        loader.load('./6/skeleton4.gltf', function (gltf) {
-                model = gltf.scene;
-                model.scale.set(0.035,0.035,0.035);
-                model.position.set(0,-3.5,0);
-                scene.add(model);
-
-            extractPartsAndMaterials(model);
-
-            // 为模型添加点击事件
-            window.addEventListener('click', onMouseClick, false);
-            initDragControls(model);
-
-        });
-
-        //加载身体
-        document.getElementById('body').addEventListener('click', function () {
-            scene.remove(model);
-            loader.load('./6/skeleton9.gltf', function (gltf) {
-                model = gltf.scene;
-                model.scale.set(0.5,0.5,0.5);
-                model.position.set(0,-10,-10);
-                scene.add(model);
-
-                extractPartsAndMaterials(model);
-
-                window.removeEventListener('click', onMouseClick);
-                window.addEventListener('click', onMouseClick, false);
-                initDragControls(model);
-
-            });
-
-        });
-
-        //加载胸腔
-        document.getElementById('chest').addEventListener('click', function () {
-            scene.remove(model);
-            loader.load('./source/1/scene.gltf', function (gltf) {
-                model = gltf.scene;
-                model.scale.set(0.0025, 0.0025, 0.0025);
-                model.position.set(0, 0, 0);
-                scene.add(model);
-
-                extractPartsAndMaterials(model);
-                window.removeEventListener('click', onMouseClick);
-                window.addEventListener('click', onMouseClick, false);
-                initDragControls(model);
-
-            });
-
-        });
-
-
         //拖拽部件函数
         function initDragControls(object) {
             var dragControls = new THREE.DragControls([object], camera, renderer.domElement);
@@ -393,10 +473,341 @@
             });
         }
 
+        //遍历函数进行材质保存
+        function extractPartsAndMaterials(object) {
+
+            if (object != skeleton && object != humanskin && object != muscle && object != blood && object != organs) {
+                // 清空状态和材质
+                parts = [];
+                highlightStatus = {};
+                defaultMaterials = {};
+            }
+
+
+            object.traverse(function (child) {
+                if (child.isMesh) {
+                    parts.push(child);
+                    highlightStatus[child.uuid] = false;
+                    defaultMaterials[child.uuid] = child.material;
+                }
+            });
+        }
+
+        //遍历进行模型材质清除为避免多重模型的高光重叠
+        function deletePartsAndMaterials(object) {
+            object.traverse(function (child) {
+                if (child.isMesh) {
+                    parts = parts.filter(part => part.uuid !== child.uuid);
+                    delete defaultMaterials[child.uuid];
+                    delete highlightStatus[child.uuid];
+                }
+            });
+        }
+        //清除场景
+        function clear() {
+            scene.remove(group);
+            scene.remove(model);
+        }
+
+        //右侧按键清除
+        function clearDiv() {
+            document.getElementById('skeleton').remove();
+            document.getElementById('skin').remove();
+            document.getElementById('muscle').remove();
+            document.getElementById('blood').remove();
+            document.getElementById('organs').remove();
+        }
+
+        //右侧按键添加
+        function addDiv() {
+            if (document.getElementById('skin') ||
+                document.getElementById('muscle') ||
+                document.getElementById('blood') ||
+                document.getElementById('organs') ||
+                document.getElementById('skeleton')) {
+                return;
+            }
+            // 创建新元素
+            var newElement = document.createElement('div');
+            newElement.id = 'skin'; 
+            newElement.textContent = 'Skin'; 
+            newElement.className = 'sidebar-right-item';
+            // 添加新元素到DOM
+            document.getElementById('sidebar-right').appendChild(newElement);
+
+            var newElement = document.createElement('div');
+            newElement.id = 'muscle'; 
+            newElement.textContent = 'Muscle'; 
+            newElement.className = 'sidebar-right-item';
+            // 添加新元素到DOM
+            document.getElementById('sidebar-right').appendChild(newElement);
+
+            var newElement = document.createElement('div');
+            newElement.id = 'blood'; 
+            newElement.textContent = 'Blood'; 
+            newElement.className = 'sidebar-right-item';
+            // 添加新元素到DOM
+            document.getElementById('sidebar-right').appendChild(newElement);
+
+            var newElement = document.createElement('div');
+            newElement.id = 'organs'; 
+            newElement.textContent = 'Organs'; 
+            newElement.className = 'sidebar-right-item';
+            // 添加新元素到DOM
+            document.getElementById('sidebar-right').appendChild(newElement);
+
+            var newElement = document.createElement('div');
+            newElement.id = 'skeleton'; 
+            newElement.textContent = 'Skeleton'; 
+            newElement.className = 'sidebar-right-item';
+            // 添加新元素到DOM
+            document.getElementById('sidebar-right').appendChild(newElement);
+        }
+
+        //加载初始模型
+        var loader = new THREE.GLTFLoader();
+        var model;
+        var skeleton;
+        var humanskin;
+        var muscle;
+        var blood;
+        var organs;
+        var group = new THREE.Group();
+        loader.load('./source/models/organs/organs.gltf', function (gltf) {
+            organs = gltf.scene;
+            organs.scale.set(0.02, 0.02, 0.02);
+            organs.position.set(5, -2, -20);
+            group.add(organs);
+            scene.add(group);
+
+            extractPartsAndMaterials(organs);
+            window.addEventListener('click', onMouseClick, false);
+        });
+
+        loader.load('./source/models/skeleton/skeleton.gltf', function (gltf) {
+            skeleton = gltf.scene;
+            skeleton.scale.set(0.02, 0.02, 0.02);
+            skeleton.position.set(10, -2, -20);
+
+            group.add(skeleton);
+            scene.add(group);
+        
+            extractPartsAndMaterials(skeleton);
+            window.addEventListener('click', onMouseClick, false);
+        });
+
+        loader.load('./source/models/skin/Skin.gltf', function (gltf) {
+            humanskin = gltf.scene;
+            humanskin.scale.set(0.02, 0.02, 0.02);
+            humanskin.position.set(0, -2, -20);
+            group.add(humanskin);
+            scene.add(group);
+
+            extractPartsAndMaterials(humanskin);
+            window.addEventListener('click', onMouseClick, false);
+        });
+
+        loader.load('./source/models/vein_artery_heart/vein_artery_heart.gltf', function (gltf) {
+            blood = gltf.scene;
+            blood.scale.set(0.02, 0.02, 0.02);
+            blood.position.set(-5, -2, -20);
+            group.add(blood);
+            scene.add(group);
+
+            extractPartsAndMaterials(blood);
+            window.addEventListener('click', onMouseClick, false);
+        });
+
+        loader.load('./source/models/muscle/Human_muscle_tissue.gltf', function (gltf) {
+            muscle = gltf.scene;
+            muscle.scale.set(0.02, 0.02, 0.02);
+            muscle.position.set(-10, -2, -20);
+            group.add(muscle);
+            scene.add(group);
+
+            extractPartsAndMaterials(muscle);
+            window.addEventListener('click', onMouseClick, false);
+        });
+
+        //加载全身
+        document.getElementById('body').addEventListener('click', function () {
+            clear();
+
+            scene.add(group);
+
+            extractPartsAndMaterials(group);
+
+            window.removeEventListener('click', onMouseClick);
+            window.addEventListener('click', onMouseClick, false);
+            initDragControls(group);
+            addDiv();
+        });
+
+
+        //加载上身骨骼肌
+        document.getElementById('lungs').addEventListener('click', function () {
+            clear();
+            loader.load('./source/models/Upper body skeletal muscle/lungs.gltf', function (gltf) {
+                model = gltf.scene;
+                model.scale.set(0.005, 0.005, 0.005);
+                model.position.set(-1, 0.5, 0);
+                scene.add(model);
+
+                extractPartsAndMaterials(model);
+
+                window.removeEventListener('click', onMouseClick);
+                window.addEventListener('click', onMouseClick, false);
+                initDragControls(model);
+                clearDiv();
+
+            });
+
+        });
+
+        //加载器官
+        document.getElementById('organ').addEventListener('click', function () {
+            clear();
+            loader.load('./source/models/Upper body organs/oragan.gltf', function (gltf) {
+                model = gltf.scene;
+                model.scale.set(0.005, 0.005, 0.005);
+                model.position.set(-0.5, -0.5, -0.5);
+                scene.add(model);
+
+                extractPartsAndMaterials(model);
+                window.removeEventListener('click', onMouseClick);
+                window.addEventListener('click', onMouseClick, false);
+                initDragControls(model);
+                clearDiv();
+
+            });
+
+        });
+
+        //加载胸腔
+        document.getElementById('heart').addEventListener('click', function () {
+            clear();
+            loader.load('./source/models/Heart in thorax/Heart_in_thoraxgltf.gltf', function (gltf) {
+                model = gltf.scene;
+                model.scale.set(0.0025, 0.0025, 0.0025);
+                model.position.set(0, 0, 0);
+                scene.add(model);
+
+                extractPartsAndMaterials(model);
+                window.removeEventListener('click', onMouseClick);
+                window.addEventListener('click', onMouseClick, false);
+                initDragControls(model);
+                clearDiv();
+
+            });
+
+        });
+
+
+        //右侧整体模型的调节
+        let humanskinAdded = true;
+        let organsAdded = true;
+        let muscleAdded = true;
+        let bloodAdded = true;
+        let skeletonAdded = true;
+
+        //人体皮肤模型的清除和加载
+        $(document).on('click', '#skin', function() {
+            // 检查是否已经添加了skin模型
+            if (humanskinAdded) {
+                // 如果已经添加了，则移除模型
+                group.remove(humanskin);
+                deletePartsAndMaterials(humanskin);
+                humanskinAdded = false;
+                $('#skin').css('background-color', '#3c4147');
+            } else {
+                // 否则，添加模型
+                group.add(humanskin);
+                extractPartsAndMaterials(humanskin);
+                humanskinAdded = true;
+                $('#skin').css('background-color', '#fedb4e');
+            }
+        });
+        
+        
+
+        //人体肌肉模型的清除和加载
+        $(document).on('click', '#muscle', function() {
+            // 检查是否已经添加了muscle模型
+            if (muscleAdded) {
+                // 如果已经添加了，则移除模型
+                group.remove(muscle);
+                deletePartsAndMaterials(muscle);
+                muscleAdded = false;
+                $('#muscle').css('background-color', '#3c4147');
+            } else {
+                // 否则，添加模型
+                group.add(muscle);
+                extractPartsAndMaterials(muscle);
+                muscleAdded = true;
+                $('#muscle').css('background-color', '#fedb4e');
+            }
+        });
+
+        //人体血管模型的清除和加载
+        $(document).on('click', '#blood', function() {
+            // 检查是否已经添加了blood模型
+            if (bloodAdded) {
+                // 如果已经添加了，则移除模型
+                group.remove(blood);
+                deletePartsAndMaterials(blood);
+                bloodAdded = false;
+                $('#blood').css('background-color', '#3c4147');
+            } else {
+                // 否则，添加模型
+                group.add(blood);
+                extractPartsAndMaterials(blood);
+                bloodAdded = true;
+                $('#blood').css('background-color', '#fedb4e');
+            }
+        });
+
+        //人体内脏模型的清除和加载
+        $(document).on('click', '#organs', function() {
+            // 检查是否已经添加了organs模型
+            if (organsAdded) {
+                // 如果已经添加了，则移除模型
+                group.remove(organs);
+                deletePartsAndMaterials(organs);
+                organsAdded = false;
+                $('#organs').css('background-color', '#3c4147');
+            } else {
+                // 否则，添加模型
+                group.add(organs);
+                extractPartsAndMaterials(organs);
+                organsAdded = true;
+                $('#organs').css('background-color', '#fedb4e');
+            }
+        });
+        
+
+        //人体骨架模型的清除和加载
+        $(document).on('click', '#skeleton', function() {
+            // 检查是否已经添加了skeleton模型
+            if (skeletonAdded) {
+                // 如果已经添加了，则移除模型
+                group.remove(skeleton);
+                deletePartsAndMaterials(skeleton);
+                skeletonAdded = false;
+                $('#skeleton').css('background-color', '#3c4147');
+            } else {
+                // 否则，添加模型
+                group.add(skeleton);
+                extractPartsAndMaterials(skeleton);
+                skeletonAdded = true;
+                $('#skeleton').css('background-color', '#fedb4e');
+            }
+        });
+
+
         //渲染函数
         function animate() {
             requestAnimationFrame(animate);
-            
+            TWEEN.update();
             renderer.render(scene, camera);
         }
 
