@@ -573,7 +573,7 @@
         var blood;
         var organs;
         var group = new THREE.Group();
-        loader.load('./source/models/organs/organs.gltf', function (gltf) {
+        loader.load('./organs/organs.gltf', function (gltf) {
             organs = gltf.scene;
             organs.scale.set(0.02, 0.02, 0.02);
             organs.position.set(5, -2, -20);
@@ -584,7 +584,7 @@
             window.addEventListener('click', onMouseClick, false);
         });
 
-        loader.load('./source/models/skeleton/skeleton.gltf', function (gltf) {
+        loader.load('./skeleton/skeleton.gltf', function (gltf) {
             skeleton = gltf.scene;
             skeleton.scale.set(0.02, 0.02, 0.02);
             skeleton.position.set(10, -2, -20);
@@ -596,7 +596,7 @@
             window.addEventListener('click', onMouseClick, false);
         });
 
-        loader.load('./source/models/skin/Skin.gltf', function (gltf) {
+        loader.load('./skin/Skin.gltf', function (gltf) {
             humanskin = gltf.scene;
             humanskin.scale.set(0.02, 0.02, 0.02);
             humanskin.position.set(0, -2, -20);
@@ -607,7 +607,7 @@
             window.addEventListener('click', onMouseClick, false);
         });
 
-        loader.load('./source/models/vein_artery_heart/vein_artery_heart.gltf', function (gltf) {
+        loader.load('./vein_artery_heart/vein_artery_heart.gltf', function (gltf) {
             blood = gltf.scene;
             blood.scale.set(0.02, 0.02, 0.02);
             blood.position.set(-5, -2, -20);
@@ -618,7 +618,7 @@
             window.addEventListener('click', onMouseClick, false);
         });
 
-        loader.load('./source/models/muscle/Human_muscle_tissue.gltf', function (gltf) {
+        loader.load('./muscle/Human_muscle_tissue.gltf', function (gltf) {
             muscle = gltf.scene;
             muscle.scale.set(0.02, 0.02, 0.02);
             muscle.position.set(-10, -2, -20);
@@ -647,7 +647,7 @@
         //加载上身骨骼肌
         document.getElementById('lungs').addEventListener('click', function () {
             clear();
-            loader.load('./source/models/Upper body skeletal muscle/lungs.gltf', function (gltf) {
+            loader.load('./Upper body skeletal muscle/lungs.gltf', function (gltf) {
                 model = gltf.scene;
                 model.scale.set(0.005, 0.005, 0.005);
                 model.position.set(-1, 0.5, 0);
@@ -667,7 +667,7 @@
         //加载器官
         document.getElementById('organ').addEventListener('click', function () {
             clear();
-            loader.load('./source/models/Upper body organs/oragan.gltf', function (gltf) {
+            loader.load('./Upper body organs/oragan.gltf', function (gltf) {
                 model = gltf.scene;
                 model.scale.set(0.005, 0.005, 0.005);
                 model.position.set(-0.5, -0.5, -0.5);
@@ -686,7 +686,7 @@
         //加载胸腔
         document.getElementById('heart').addEventListener('click', function () {
             clear();
-            loader.load('./source/models/Heart in thorax/Heart_in_thoraxgltf.gltf', function (gltf) {
+            loader.load('./Heart in thorax/Heart_in_thoraxgltf.gltf', function (gltf) {
                 model = gltf.scene;
                 model.scale.set(0.0025, 0.0025, 0.0025);
                 model.position.set(0, 0, 0);
