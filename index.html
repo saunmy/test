@@ -19,6 +19,7 @@
             display: block;
         }
 
+        /*动画遮罩*/
         #mask {
             display:flex;
             background: radial-gradient(circle at center, #fefefe, #373f4a);
@@ -30,19 +31,64 @@
 
         }
 
+        /*疾病模型*/
         #disease {
             position: absolute;
-            top: 100px;
+            top: 30px;
             left: 100px;
             height: 50px;
             width: 200px;
-            background-color: transparent;
-
+            background-color: transparent;           
+            perspective: 500px;            
+            transition: transform 0.3s ease-out;
+            opacity: 0;
         }
-
-        #disease:hover{
-            background-color: red;            
+        
+        #disease .text {
+            position: relative;
+            z-index: 2;
+            color: #f6fafa;
+            text-align: center;
+            transition: transform 0.3s ease-out;
+            font-size: 1.5em;
+            line-height: 20%;
+          }
+    
+    
+        #disease:hover .text{
+            transform: translateZ(40px);
         }
+    
+
+        /*健康模型*/
+        #healthy {
+            position: absolute;
+            top: 30px;
+            left: 350px;
+            height: 50px;
+            width: 200px;
+            background-color: transparent;           
+            perspective: 500px;            
+            transition: transform 0.3s ease-out;
+            opacity: 0;
+        }
+        
+        #healthy .text {
+            position: relative;
+            z-index: 2;
+            color: #f6fafa;
+            text-align: center;
+            transition: transform 0.3s ease-out;
+            font-size: 1.5em;
+            line-height: 20%;
+          }
+    
+    
+        #healthy:hover .text{
+            transform: translateZ(40px);
+        }
+    
+
         /* 右侧侧边栏 */
         #sidebar-right {
             position: absolute;
@@ -81,22 +127,21 @@
 
 
         /* 左侧侧边栏 */
-
         #container {
             position: absolute;
             left: 100px;
-            top: 200px;
-            overflow-x: hidden;
-            overflow-y: scroll;
-            height: 500px;
-            width: 420px;
-            transition: transform 0.5s;
+            top: 120px;
+            overflow: hidden;
+            height: 900px;
+            width: 400px;
+            perspective: 500px;            
+            transition: transform 1s ease-in-out;
             opacity: 0;
         }
 
         #sidebar-left { 
             display: flex;
-            width: 400px;
+            width: 300px;
             background-color: transparent;
             color: #f6fafa;
             flex-direction: row;
@@ -107,14 +152,14 @@
 
         .sidebar-left-item {
             height: 200px;
-            width: 200px;
+            width: 300px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .sidebar-left-item:hover {
-            background-color: #fedb4e;
+            transform: scale(1.2);
         }
 
 
@@ -171,7 +216,7 @@
             width: 40%;
             font-size: 7em;
             text-align: center;
-            color: #f6fafa;
+            color: gray;
             transition: opacity 0.5s ease;
         }
     </style>
@@ -179,15 +224,18 @@
 
 <body>
     <div id="mask"></div>
-    <div id="disease">disease</div>
+    <div id="disease">
+        <p class="text">disease</p>
+    </div>
+    <div id="healthy">
+        <p class="text">healthy</p>
+    </div>
     <div id="container">
         <div id="sidebar-left">
             <div class="sidebar-left-item" id="body" >Body</div>
-            <div class="sidebar-left-item" id="organ" ">Organ</div>
+            <div class="sidebar-left-item" id="organ" >Organ</div>
             <div class="sidebar-left-item" id="heart" >Heart</div>
-            <div class="sidebar-left-item" id="lungs" >Lungs</div>
-            <div class="sidebar-left-item" id="kidney" >Kidney</div>
-            <div class="sidebar-left-item" id="stomach" >Stomach</div>
+            <div class="sidebar-left-item" id="upper-muscle" >upper-muscle</div>
         </div>
     </div>
     
@@ -195,7 +243,6 @@
     <div id="toggle-btn">
         <</div>
     <div id="sidebar-right">
-        <div class="sidebar-right-item" id="drag">Drag</div>
         <div class="sidebar-right-item" id="skin">Skin</div>
         <div class="sidebar-right-item" id="muscle">Muscle</div>
         <div class="sidebar-right-item" id="blood">blood</div>
@@ -222,6 +269,8 @@
         var sidebar_left = document.getElementById('sidebar-left');
         var welcome = document.getElementById('welcome');
         var container = document.getElementById('container');
+        var disease = document.getElementById('disease');
+        var healthy = document.getElementById('healthy');
 
         document.getElementById('toggle-btn').addEventListener('click', function () {
             if (sidebar.style.transform === 'translateX(0%)') {
@@ -239,7 +288,7 @@
             event.stopPropagation();
         });
 
-        document.getElementById('drag').style.backgroundColor = '#3c4147';
+        //document.getElementById('intr').style.backgroundColor = '#3c4147';
 
         //启动动画
         document.getElementById('start').addEventListener('click', function () {
@@ -309,6 +358,14 @@
                     .start();
 
                 new TWEEN.Tween(toggleBtn.style)
+                    .to({ opacity: 1 }, 1000)
+                    .start();
+                
+                new TWEEN.Tween(disease.style)
+                    .to({ opacity: 1 }, 1000)
+                    .start();
+                
+                new TWEEN.Tween(healthy.style)
                     .to({ opacity: 1 }, 1000)
                     .start();
                 
@@ -462,6 +519,101 @@
             }
         }
 
+        //疾病与健康切换点击事件
+        document.getElementById('disease').addEventListener('click', function () {
+            clear();
+            loader.load('./aspergilloma lung/aspergilloma lung.gltf', function (gltf) {
+                model = gltf.scene;
+                model.scale.set(9, 9, 9);
+                model.position.set(0, 0, 0);
+                scene.add(model);
+
+                extractPartsAndMaterials(model);
+                window.removeEventListener('click', onMouseClick);
+                window.addEventListener('click', onMouseClick, false);
+                initDragControls(model);
+                clearDiv();
+                clearleftDiv();
+                
+                if(document.getElementById('introduction')){
+                    return
+                }
+                else{
+                    var newElement = document.createElement('div');
+                    newElement.id = 'introduction'; 
+                    newElement.textContent = 'introdu\nction'; 
+                    newElement.className = 'sidebar-right-item';
+                    document.getElementById('sidebar-right').appendChild(newElement);
+                }
+                addleftDivdisease();
+            });
+        });
+        
+
+        document.getElementById('healthy').addEventListener('click', function () {
+            clear();
+            loader.load('./organs/organs.gltf', function (gltf) {
+                organs = gltf.scene;
+                organs.scale.set(0.02, 0.02, 0.02);
+                organs.position.set(0, -2, 0);
+                group.add(organs);
+                scene.add(group);
+
+                extractPartsAndMaterials(organs);
+                window.addEventListener('click', onMouseClick, false);
+            });
+            loader.load('./skeleton/skeleton.gltf', function (gltf) {
+                skeleton = gltf.scene;
+                skeleton.scale.set(0.02, 0.02, 0.02);
+                skeleton.position.set(0, -2, 0);
+
+                group.add(skeleton);
+                scene.add(group);
+
+                extractPartsAndMaterials(skeleton);
+                window.addEventListener('click', onMouseClick, false);
+            });
+
+            loader.load('./skin/Skin.gltf', function (gltf) {
+                humanskin = gltf.scene;
+                humanskin.scale.set(0.02, 0.02, 0.02);
+                humanskin.position.set(0, -2, 0);
+                group.add(humanskin);
+                scene.add(group);
+
+                extractPartsAndMaterials(humanskin);
+                window.addEventListener('click', onMouseClick, false);
+            });
+
+            loader.load('./vein_artery_heart/vein_artery_heart.gltf', function (gltf) {
+                blood = gltf.scene;
+                blood.scale.set(0.02, 0.02, 0.02);
+                blood.position.set(0, -2, 0);
+                group.add(blood);
+                scene.add(group);
+
+                extractPartsAndMaterials(blood);
+                window.addEventListener('click', onMouseClick, false);
+            });
+
+            loader.load('./muscle/Human_muscle_tissue.gltf', function (gltf) {
+                muscle = gltf.scene;
+                muscle.scale.set(0.02, 0.02, 0.02);
+                muscle.position.set(0, -2, 0);
+                group.add(muscle);
+                scene.add(group);
+
+                extractPartsAndMaterials(muscle);
+                window.addEventListener('click', onMouseClick, false);
+            });
+            document.getElementById('introduction').remove();
+            document.getElementById('aspergilloma').remove();
+            document.getElementById('interstitial').remove();
+            document.getElementById('polycystic').remove();
+            addleftDivhealthy();
+            addDiv();
+        });
+
         //拖拽部件函数
         function initDragControls(object) {
             var dragControls = new THREE.DragControls([object], camera, renderer.domElement);
@@ -476,7 +628,7 @@
         //遍历函数进行材质保存
         function extractPartsAndMaterials(object) {
 
-            if (object != skeleton && object != humanskin && object != muscle && object != blood && object != organs) {
+            if (object != skeleton && object != humanskin && object != muscle && object != blood) {
                 // 清空状态和材质
                 parts = [];
                 highlightStatus = {};
@@ -503,6 +655,7 @@
                 }
             });
         }
+        
         //清除场景
         function clear() {
             scene.remove(group);
@@ -516,6 +669,90 @@
             document.getElementById('muscle').remove();
             document.getElementById('blood').remove();
             document.getElementById('organs').remove();
+        }
+
+        //左侧按键清除
+        function clearleftDiv() {
+            document.getElementById('body').remove();
+            document.getElementById('organ').remove();
+            document.getElementById('heart').remove();
+            document.getElementById('upper-muscle').remove();
+
+        }
+
+
+        //左侧按键添加（疾病）
+        function addleftDivdisease() {
+            if (document.getElementById('body') ||
+                document.getElementById('organ') ||
+                document.getElementById('heart') ||
+                document.getElementById('upper-muscle')||
+                document.getElementById('aspergilloma') ||
+                document.getElementById('interstitial') ||
+                document.getElementById('polycystic') ) {
+                return;
+            }
+            // 创建新元素
+            var newElement = document.createElement('div');
+            newElement.id = 'aspergilloma'; 
+            newElement.textContent = 'aspergilloma'; 
+            newElement.className = 'sidebar-left-item';
+            // 添加新元素到DOM
+            document.getElementById('sidebar-left').appendChild(newElement);
+
+            var newElement = document.createElement('div');
+            newElement.id = 'interstitial'; 
+            newElement.textContent = 'interstitial'; 
+            newElement.className = 'sidebar-left-item';
+            // 添加新元素到DOM
+            document.getElementById('sidebar-left').appendChild(newElement);var newElement = document.createElement('div');
+            
+            newElement.id = 'polycystic'; 
+            newElement.textContent = 'polycystic'; 
+            newElement.className = 'sidebar-left-item';
+            // 添加新元素到DOM
+            document.getElementById('sidebar-left').appendChild(newElement);
+        }
+
+        //左侧按键添加（健康）
+        function addleftDivhealthy() {
+            if (document.getElementById('body') ||
+                document.getElementById('organ') ||
+                document.getElementById('heart') ||
+                document.getElementById('upper-muscle')||
+                document.getElementById('aspergilloma') ||
+                document.getElementById('interstitial') ||
+                document.getElementById('polycystic') ) {
+                return;
+            }
+            // 创建新元素
+            var newElement = document.createElement('div');
+            newElement.id = 'body'; 
+            newElement.textContent = 'body'; 
+            newElement.className = 'sidebar-left-item';
+            // 添加新元素到DOM
+            document.getElementById('sidebar-left').appendChild(newElement);
+
+            var newElement = document.createElement('div');
+            newElement.id = 'organ'; 
+            newElement.textContent = 'organ'; 
+            newElement.className = 'sidebar-left-item';
+            // 添加新元素到DOM
+            document.getElementById('sidebar-left').appendChild(newElement);
+            
+            var newElement = document.createElement('div');            
+            newElement.id = 'heart'; 
+            newElement.textContent = 'heart'; 
+            newElement.className = 'sidebar-left-item';
+            // 添加新元素到DOM
+            document.getElementById('sidebar-left').appendChild(newElement);
+
+            var newElement = document.createElement('div'); 
+            newElement.id = 'upper-muscle'; 
+            newElement.textContent = 'upper-muscle'; 
+            newElement.className = 'sidebar-left-item';
+            // 添加新元素到DOM
+            document.getElementById('sidebar-left').appendChild(newElement);
         }
 
         //右侧按键添加
@@ -629,25 +866,94 @@
             window.addEventListener('click', onMouseClick, false);
         });
 
-        //加载全身
-        document.getElementById('body').addEventListener('click', function () {
+        
+        
+        //加载曲霉球肺病
+        $(document).on('click', '#aspergilloma', function() {
             clear();
+            loader.load('./aspergilloma lung/aspergilloma lung.gltf', function (gltf) {
+            model = gltf.scene;
+            model.scale.set(9, 9, 9);
+            model.position.set(0, 0, 0);
+            scene.add(model);
+            
+            extractPartsAndMaterials(model);
+            window.removeEventListener('click', onMouseClick);
+            window.addEventListener('click', onMouseClick, false);
+            });
+        })
 
+        //加载肺间质疾病
+        $(document).on('click', '#interstitial', function() {
+            clear();
+            loader.load('./interstitial lung/interstitial lung.gltf', function (gltf) {
+            model = gltf.scene;
+            model.scale.set(9, 9, 9);
+            model.position.set(0, 0, 0);
+            scene.add(model);
+            
+            extractPartsAndMaterials(model);
+            window.removeEventListener('click', onMouseClick);
+            window.addEventListener('click', onMouseClick, false);
+            });
+        })
+
+        //加载多囊肾
+        $(document).on('click', '#polycystic', function() {
+            clear();
+            loader.load('./polycystic kidney/polycystic kidney.gltf', function (gltf) {
+                model = gltf.scene;
+                model.scale.set(0.25, 0.25, 0.25);
+                model.position.set(-0.5, 0, 0);
+                scene.add(model);
+            
+                extractPartsAndMaterials(model);
+                window.removeEventListener('click', onMouseClick);
+                window.addEventListener('click', onMouseClick, false);
+            });
+        })
+
+
+        //加载身体
+        $(document).on('click', '#body', function() {            
+            clear();
             scene.add(group);
-
             extractPartsAndMaterials(group);
-
             window.removeEventListener('click', onMouseClick);
             window.addEventListener('click', onMouseClick, false);
             initDragControls(group);
             addDiv();
-        });
-
+            if (humanskinAdded) {
+                $('#skin').css('background-color', '#fedb4e');
+            } else {
+                $('#skin').css('background-color', '#3c4147');
+            }
+            if (organsAdded) {
+                $('#organs').css('background-color', '#fedb4e');
+            } else {
+                $('#organs').css('background-color', '#3c4147');
+            }
+            if (muscleAdded) {
+                $('#muscle').css('background-color', '#fedb4e');
+            } else {
+                $('#muscle').css('background-color', '#3c4147');
+            }
+            if (bloodAdded) {
+                $('#blood').css('background-color', '#fedb4e');
+            } else {
+                $('#blood').css('background-color', '#3c4147');
+            }
+            if (skeletonAdded) {
+                $('#skeleton').css('background-color', '#fedb4e');
+            } else {
+                $('#skeleton').css('background-color', '#3c4147');
+            }
+        })
 
         //加载上身骨骼肌
-        document.getElementById('lungs').addEventListener('click', function () {
+        $(document).on('click', '#upper-muscle', function() {
             clear();
-            loader.load('./Upper body skeletal muscle/lungs.gltf', function (gltf) {
+            loader.load('./Upper body skeletal muscle/muscle_skeleton.gltf', function (gltf) {
                 model = gltf.scene;
                 model.scale.set(0.005, 0.005, 0.005);
                 model.position.set(-1, 0.5, 0);
@@ -661,11 +967,10 @@
                 clearDiv();
 
             });
-
-        });
+        })
 
         //加载器官
-        document.getElementById('organ').addEventListener('click', function () {
+        $(document).on('click', '#organ', function() {
             clear();
             loader.load('./Upper body organs/oragan.gltf', function (gltf) {
                 model = gltf.scene;
@@ -680,11 +985,11 @@
                 clearDiv();
 
             });
+        })
 
-        });
 
         //加载胸腔
-        document.getElementById('heart').addEventListener('click', function () {
+        $(document).on('click', '#heart', function() {
             clear();
             loader.load('./Heart in thorax/Heart_in_thoraxgltf.gltf', function (gltf) {
                 model = gltf.scene;
@@ -699,8 +1004,7 @@
                 clearDiv();
 
             });
-
-        });
+        })
 
 
         //右侧整体模型的调节
