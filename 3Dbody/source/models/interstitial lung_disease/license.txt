@@ -1,0 +1,11 @@
+Model Information:
+* title:	Honey comb lung, Interstitial lung disease
+* source:	https://sketchfab.com/3d-models/honey-comb-lung-interstitial-lung-disease-a1ac2857a6224880a77f1ab57d60d03b
+* author:	ScienceLifeNY (https://sketchfab.com/ScienceLifeNY)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Honey comb lung, Interstitial lung disease" (https://sketchfab.com/3d-models/honey-comb-lung-interstitial-lung-disease-a1ac2857a6224880a77f1ab57d60d03b) by ScienceLifeNY (https://sketchfab.com/ScienceLifeNY) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
